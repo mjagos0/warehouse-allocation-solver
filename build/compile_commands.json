@@ -1,0 +1,47 @@
+[
+{
+  "directory": "/home/mjagos/warehouse-allocation-restore/build",
+  "command": "/usr/bin/clang++-14  -I/home/mjagos/warehouse-allocation-restore/build/_deps/json-src/include -g -std=gnu++17 -o CMakeFiles/WhAllocSolver.dir/src/main.cpp.o -c /home/mjagos/warehouse-allocation-restore/src/main.cpp",
+  "file": "/home/mjagos/warehouse-allocation-restore/src/main.cpp"
+},
+{
+  "directory": "/home/mjagos/warehouse-allocation-restore/build/_deps/googletest-build/googlemock",
+  "command": "/usr/bin/clang++-14  -I/home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googlemock/include -I/home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googlemock -isystem /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest/include -isystem /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest -g -Wall -Wshadow -Wconversion -Wundef -DGTEST_HAS_PTHREAD=1 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Winline -Wredundant-decls -Wchar-subscripts -std=c++17 -o CMakeFiles/gmock.dir/src/gmock-all.cc.o -c /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googlemock/src/gmock-all.cc",
+  "file": "/home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googlemock/src/gmock-all.cc"
+},
+{
+  "directory": "/home/mjagos/warehouse-allocation-restore/build/_deps/googletest-build/googlemock",
+  "command": "/usr/bin/clang++-14  -isystem /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googlemock/include -isystem /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googlemock -isystem /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest/include -isystem /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest -g -Wall -Wshadow -Wconversion -Wundef -DGTEST_HAS_PTHREAD=1 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Winline -Wredundant-decls -Wchar-subscripts -std=c++17 -o CMakeFiles/gmock_main.dir/src/gmock_main.cc.o -c /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googlemock/src/gmock_main.cc",
+  "file": "/home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googlemock/src/gmock_main.cc"
+},
+{
+  "directory": "/home/mjagos/warehouse-allocation-restore/build/_deps/googletest-build/googletest",
+  "command": "/usr/bin/clang++-14  -I/home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest/include -I/home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest -g -Wall -Wshadow -Wconversion -Wundef -DGTEST_HAS_PTHREAD=1 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Winline -Wredundant-decls -Wchar-subscripts -std=c++17 -o CMakeFiles/gtest.dir/src/gtest-all.cc.o -c /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest/src/gtest-all.cc",
+  "file": "/home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest/src/gtest-all.cc"
+},
+{
+  "directory": "/home/mjagos/warehouse-allocation-restore/build/_deps/googletest-build/googletest",
+  "command": "/usr/bin/clang++-14  -isystem /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest/include -isystem /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest -g -Wall -Wshadow -Wconversion -Wundef -DGTEST_HAS_PTHREAD=1 -fexceptions -W -Wpointer-arith -Wreturn-type -Wcast-qual -Wwrite-strings -Wswitch -Wunused-parameter -Wcast-align -Winline -Wredundant-decls -Wchar-subscripts -std=c++17 -o CMakeFiles/gtest_main.dir/src/gtest_main.cc.o -c /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest/src/gtest_main.cc",
+  "file": "/home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest/src/gtest_main.cc"
+},
+{
+  "directory": "/home/mjagos/warehouse-allocation-restore/build/tests",
+  "command": "/usr/bin/clang++-14  -isystem /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest/include -isystem /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest -g -std=gnu++17 -o CMakeFiles/WhAllocSolverTests.dir/test_loader.cpp.o -c /home/mjagos/warehouse-allocation-restore/tests/test_loader.cpp",
+  "file": "/home/mjagos/warehouse-allocation-restore/tests/test_loader.cpp"
+},
+{
+  "directory": "/home/mjagos/warehouse-allocation-restore/build/tests",
+  "command": "/usr/bin/clang++-14  -isystem /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest/include -isystem /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest -g -std=gnu++17 -o CMakeFiles/WhAllocSolverTests.dir/test_solution.cpp.o -c /home/mjagos/warehouse-allocation-restore/tests/test_solution.cpp",
+  "file": "/home/mjagos/warehouse-allocation-restore/tests/test_solution.cpp"
+},
+{
+  "directory": "/home/mjagos/warehouse-allocation-restore/build/tests",
+  "command": "/usr/bin/clang++-14  -isystem /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest/include -isystem /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest -g -std=gnu++17 -o CMakeFiles/WhAllocSolverTests.dir/test_initialization.cpp.o -c /home/mjagos/warehouse-allocation-restore/tests/test_initialization.cpp",
+  "file": "/home/mjagos/warehouse-allocation-restore/tests/test_initialization.cpp"
+},
+{
+  "directory": "/home/mjagos/warehouse-allocation-restore/build/tests",
+  "command": "/usr/bin/clang++-14  -isystem /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest/include -isystem /home/mjagos/warehouse-allocation-restore/build/_deps/googletest-src/googletest -g -std=gnu++17 -o CMakeFiles/WhAllocSolverTests.dir/test_warehouse.cpp.o -c /home/mjagos/warehouse-allocation-restore/tests/test_warehouse.cpp",
+  "file": "/home/mjagos/warehouse-allocation-restore/tests/test_warehouse.cpp"
+}
+]

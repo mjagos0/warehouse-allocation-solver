@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Site BuildName="(empty)"
+	BuildStamp="20250104-1433-Experimental"
+	Name="(empty)"
+	Generator="ctest-3.25.1"
+	CompilerName=""
+	CompilerVersion=""
+	OSName="Linux"
+	Hostname="IDGINC-J3FCNN3"
+	OSRelease="5.15.167.4-microsoft-standard-WSL2"
+	OSVersion="#1 SMP Tue Nov 5 00:21:55 UTC 2024"
+	OSPlatform="x86_64"
+	Is64Bits="1"
+	VendorString="GenuineIntel"
+	VendorID="Intel Corporation"
+	FamilyID="6"
+	ModelID="154"
+	ProcessorCacheSize="12288"
+	NumberOfLogicalCPU="12"
+	NumberOfPhysicalCPU="6"
+	TotalVirtualMemory="4096"
+	TotalPhysicalMemory="15713"
+	LogicalProcessorsPerPhysical="2"
+	ProcessorClockFrequency="2688.01"
+	>
+	<Testing>
+		<StartDateTime>Jan 04 20:38 CET</StartDateTime>
+		<StartTestTime>1736019530</StartTestTime>
+		<TestList>
+			<Test>./tests/WhAllocSolverTests</Test>
+		</TestList>
+		<Test Status="failed">
+			<Name>WhAllocSolverTests</Name>
+			<Path>./tests</Path>
+			<FullName>./tests/WhAllocSolverTests</FullName>
+			<FullCommandLine>/home/mjagos/warehouse-allocation-restore/build/tests/WhAllocSolverTests</FullCommandLine>
+			<Results>
+				<NamedMeasurement type="text/string" name="Exit Code">
+					<Value>Failed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Exit Value">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Execution Time">
+					<Value>0.0066134</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="numeric/double" name="Processors">
+					<Value>1</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Completion Status">
+					<Value>Completed</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Command Line">
+					<Value>/home/mjagos/warehouse-allocation-restore/build/tests/WhAllocSolverTests</Value>
+				</NamedMeasurement>
+				<NamedMeasurement type="text/string" name="Environment">
+					<Value>#CTEST_RESOURCE_GROUP_COUNT=</Value>
+				</NamedMeasurement>
+				<Measurement>
+					<Value encoding="base64" compression="gzip">eJyNk0uPmzAQx+/+FHNM1AKhKpWKtIdom62ibtsopOWAEHLIJLgyNvVj091PXwO7aLPKaw7Ig3/z+I/tpRWCiR3UlInRGLZK1hBUssag/kN3Ugd7qrCSVqNHOZclNUwKT6E2UmGwtoxvgmKDjQ52Uu44GrfjaVW+coPObVdFW8UvS5LdDJbD8rmFCFpG9z2EnQPaMoM+ybzBcvjK5Zryfh/FA1NS1Cgci8azzRv4IGl6X4SfipBksPz1AzrLX376c8EMo5w9YSK5bWWuXKRje/v57SILownUenw8/UJhKevGGrytkDYOT18mq08XuhR1tuR3rKV6nA7HdrzEW+psyrlwvfym3KI+NZkBOJtokNGq0OT6K9cdZ/ctBs4vmyYOwxjuKONWIZn9a7A0uAH8a90xmUeQWzAVaoSHrreYACT+lhmBWpO2tbRiZQVMxxB9CD/70WSwKHLAwl8Vt2k2ybN9Du+cmxSpWx4NJe1o7qbz+9mX05KH6Vy6rTAKHQhGGsrH5LqnYJAqbyP34vClnXxhoKjwDws5CYtpkvQSPvaB/qGwPsN74Ey3s14jl/v4Gu2EuNhnaDVLVuQ/GP9oKQ==</Value>
+				</Measurement>
+			</Results>
+		</Test>
+		<EndDateTime>Jan 04 20:38 CET</EndDateTime>
+		<EndTestTime>1736019530</EndTestTime>
+		<ElapsedMinutes>0</ElapsedMinutes>
+	</Testing>
+</Site>

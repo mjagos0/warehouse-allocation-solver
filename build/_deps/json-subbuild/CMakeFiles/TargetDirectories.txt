@@ -1,0 +1,3 @@
+/home/mjagos/warehouse-allocation-restore/build/_deps/json-subbuild/CMakeFiles/json-populate.dir
+/home/mjagos/warehouse-allocation-restore/build/_deps/json-subbuild/CMakeFiles/edit_cache.dir
+/home/mjagos/warehouse-allocation-restore/build/_deps/json-subbuild/CMakeFiles/rebuild_cache.dir

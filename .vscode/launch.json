@@ -1,0 +1,64 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C++ Debugger",
+            "type": "cppdbg",                                       // C++ debugger dbg (GNU Debugger). apt list dbg. This is only used if the file is executed with debugging.
+            "request": "launch",                                    // launch/attach - we want to launch the program, not attach to already running program
+            "preLaunchTask": "g++23 compile",                       // Compile before executing program in path of "program" attribute
+            // "postDebugTask": "cleanup",                             // Clean up the binary file after debugger is finished
+            "program": "${fileDirname}/${fileBasenameNoExtension}", // This points to same place where "g++23 compile" preLaunchTask places resulting object file
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "logging": {
+                "moduleLoad": false,
+                "programOutput": true,
+                "trace": false,
+                "engineLogging": false
+            }
+        },
+        {
+            "name": "C++ Debugger With Input File",
+            "type": "cppdbg",
+            "request": "launch",
+            "preLaunchTask": "g++23 compile",
+            // "postDebugTask": "cleanup",                       
+            "program": "${fileDirname}/${fileBasenameNoExtension}",                                                                 // Launch bash
+            "args": [
+                "<", 
+                "${workspaceFolder}/inputs/.debugger.in"
+            ],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "logging": {
+                "moduleLoad": false,
+                "programOutput": true,
+                "trace": false,
+                "engineLogging": false
+            }
+        }
+    ]
+}

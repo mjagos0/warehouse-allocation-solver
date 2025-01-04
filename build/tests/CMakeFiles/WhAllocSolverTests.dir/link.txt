@@ -1,0 +1,1 @@
+/usr/bin/clang++-14 -g CMakeFiles/WhAllocSolverTests.dir/test_loader.cpp.o CMakeFiles/WhAllocSolverTests.dir/test_solution.cpp.o CMakeFiles/WhAllocSolverTests.dir/test_initialization.cpp.o CMakeFiles/WhAllocSolverTests.dir/test_warehouse.cpp.o -o WhAllocSolverTests  ../lib/libgtest_main.a ../lib/libgtest.a 
