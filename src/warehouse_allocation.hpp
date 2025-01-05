@@ -66,15 +66,17 @@ struct ProblemSolution {
     }
 
     void precomputeCheapestWarehouses() {
-        CHEAPEST_W_C.resize(P->M); // One sorted list per customer
+        CHEAPEST_W_C.resize(P->M);
+        const int K = std::min(P->N, 20);
 
         for (int i = 0; i < P->M; i++) {
             CHEAPEST_W_C[i].resize(P->N);
             std::iota(CHEAPEST_W_C[i].begin(), CHEAPEST_W_C[i].end(), 0);
-            std::sort(CHEAPEST_W_C[i].begin(), CHEAPEST_W_C[i].end(),
-                      [this, i](int w1, int w2) {
-                          return P->T_CW[i][w1] < P->T_CW[i][w2];
-                      });
+            
+            std::partial_sort(CHEAPEST_W_C[i].begin(), CHEAPEST_W_C[i].begin() + K, CHEAPEST_W_C[i].end(),
+                [this, i](int w1, int w2) {
+                    return P->T_CW[i][w1] + P->S_W[w1] < P->T_CW[i][w2] + P->S_W[w2];
+                });
         }
     }
 
@@ -262,15 +264,21 @@ struct ProblemSolution {
 struct ProblemStatistics {
     struct Epoch {
         int epoch;
-        std::vector<ProblemSolution> solutions;
+        double bestFitness;
         std::chrono::duration<double> executionTime;
 
-        double epochAverage() {
-            double fitnessAvg = 0;
-            for (ProblemSolution S : solutions) {
-                fitnessAvg += S.fitness;
+        Epoch(int epoch, std::chrono::duration<double> executionTime, std::vector<ProblemSolution>& solutions) {
+            this->epoch = epoch;
+            this->executionTime = executionTime;
+            this->bestFitness = epochBest(solutions);
+        }
+
+        double epochBest(std::vector<ProblemSolution>& solutions) {
+            double lowest = std::numeric_limits<double>::max();
+            for (ProblemSolution& s : solutions) {
+                lowest = std::min(lowest, s.fitness);
             }
-            return fitnessAvg / solutions.size();
+            return lowest;
         }
     };
 
@@ -282,23 +290,16 @@ struct ProblemStatistics {
             start = std::chrono::high_resolution_clock::now();
         }
         
-        int createRecord (int epoch, std::vector<ProblemSolution>& solutions) {
-            Epoch R = Epoch();
-            R.epoch = epoch;
-            R.solutions = solutions;
-            R.executionTime = std::chrono::high_resolution_clock::now() - start;
+        int createRecord(int epoch, std::vector<ProblemSolution>& solutions) {
+            Epoch R = Epoch(epoch, std::chrono::high_resolution_clock::now() - start, solutions);
             epochs.push_back(R);
-
             return epochs.size();
         }
 
-        int createRecord (int epoch, ProblemSolution solution) {
-            Epoch R = Epoch();
-            R.epoch = epoch;
-            R.solutions = std::vector<ProblemSolution> {solution};
-            R.executionTime = std::chrono::high_resolution_clock::now() - start;
+        int createRecord(int epoch, ProblemSolution solution) {
+            std::vector<ProblemSolution> solutions {solution};
+            Epoch R = Epoch(epoch, std::chrono::high_resolution_clock::now() - start, solutions);
             epochs.push_back(R);
-
             return epochs.size();
         }
 
@@ -315,9 +316,7 @@ struct ProblemStatistics {
     std::vector<Run> runs;
 
     int saveRun() {
-        if (run.size()) {
-            runs.push_back(run);
-        }
+        runs.push_back(run);
         run = Run();
         return runs.size();
     }
@@ -328,9 +327,9 @@ struct ProblemStatistics {
         }
 
         Run* bestRun = &runs[0];
-        double bestRunLastFitnessAvg = bestRun->lastEpoch()->epochAverage();
+        double bestRunLastFitnessAvg = bestRun->lastEpoch()->bestFitness;
         for (Run& run : runs) {
-            double runLastFitnessAvg = run.lastEpoch()->epochAverage();
+            double runLastFitnessAvg = run.lastEpoch()->bestFitness;
             if (runLastFitnessAvg < bestRunLastFitnessAvg) {
                 bestRun = &run;
                 bestRunLastFitnessAvg = runLastFitnessAvg;

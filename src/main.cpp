@@ -12,13 +12,35 @@ enum Approach {
 };
 
 int main() {
-    ProblemData P(std::cin);
-    ProblemSolution S(P);
-    ProblemStatistics stats;
+    bool HEURISTIC = true;
+    int RESTARTS = 1;
+    int MAXEPOCH = 10000;
+    int PATIENCE = 50;
 
-    local_search::solver(P, S, stats, true, 10, 10000, 100);
-    ProblemStatistics::Run* bestRun = stats.getBestRun();
-    processOutput(bestRun);
+
+    // Local search:
+    // ProblemData P(std::cin);
+    // ProblemSolution S(P);
+    // ProblemStatistics stats;
+
+    // local_search::solver(P, S, stats, HEURISTIC, RESTARTS, MAXEPOCH, PATIENCE);
+    // ProblemStatistics::Run* bestRun = stats.getBestRun();
+    // processOutput(bestRun);
+
+    // EA:
+    int POPULATION = 100;
+
+
+    ProblemData P(std::cin);
+    ProblemStatistics stats;
+    std::vector<ProblemSolution> S;
+    for (int i = 0; i != POPULATION; i++) {
+        std::cout << i << std::endl;
+        S.emplace_back(ProblemSolution(P));
+    }
+
+    // ea::solver(P, S, stats, HEURISTIC, RESTARTS, MAXEPOCH, PATIENCE);
+    
 
     return 0;
 }
@@ -26,7 +48,7 @@ int main() {
 void processOutput(ProblemStatistics::Run* bestRun) {
     std::cout << std::fixed;
     std::cout << "Best solution" <<
-        "\nfitness: " << bestRun->lastEpoch()->epochAverage() <<
+        "\nfitness: " << bestRun->lastEpoch()->bestFitness <<
         "\nepoch: " << bestRun->size() <<
         "\nruntime: " << std::to_string(bestRun->lastEpoch()->executionTime.count());
 }
