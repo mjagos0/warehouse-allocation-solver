@@ -15,15 +15,17 @@
 #include <unordered_set>
 
 struct ProblemData {
-    int N, M;                               // N = Number of Warehouses, M = Number of Customers
-    std::vector<int> CAP_W;                 // Warehouse - Capacity
-    std::vector<double> S_W;                // Warehouse - Setup Cost
-    std::vector<int> D_C;                   // Customer - Demand
-    std::vector<std::vector<double>> T_CW;  // The deliver cost to warehouse for each customer
+    int N, M;                                       // N = Number of Warehouses, M = Number of Customers
+    std::vector<int> CAP_W;                         // Warehouse - Capacity
+    std::vector<double> S_W;                        // Warehouse - Setup Cost
+    std::vector<int> D_C;                           // Customer - Demand
+    std::vector<std::vector<double>> T_CW;          // The deliver cost to warehouse for each customer
+    std::vector<std::vector<int>> CHEAPEST_W_C;     // Optimalization: Warehouses sorted by cost for each customer
 
     ProblemData() = default;
     ProblemData (std::istream &input) {
         load(input);
+        precomputeCheapestWarehouses();
     }
 
     void load(std::istream &input) {
@@ -45,6 +47,18 @@ struct ProblemData {
             }
         }
     }
+
+    void precomputeCheapestWarehouses() {
+        CHEAPEST_W_C.resize(M);
+        for (int i = 0; i < M; i++) {
+            CHEAPEST_W_C[i].resize(N);
+            std::iota(CHEAPEST_W_C[i].begin(), CHEAPEST_W_C[i].end(), 0);
+            std::sort(CHEAPEST_W_C[i].begin(), CHEAPEST_W_C[i].end(),
+                      [this, i](int w1, int w2) {
+                          return T_CW[i][w1] + S_W[w1] < T_CW[i][w2] + S_W[w2];
+                      });
+        }
+    }
 };
 
 struct ProblemSolution {
@@ -52,7 +66,6 @@ struct ProblemSolution {
     std::vector<int> W_C;                                   // Solution - Warehouse of i-th customer
     std::vector<std::unordered_set<int>> C_W;               // Warehouse - Currently assigned customers
     std::vector<int> CAP_A_W;                               // Warehouse - Current capacity of i-th warehouse
-    std::vector<std::vector<int>> CHEAPEST_W_C;             // Warehouses sorted by cost for each customer
     double fitness;                                         // Solution fitness
 
     ProblemSolution(ProblemData& P) {
@@ -61,23 +74,7 @@ struct ProblemSolution {
         C_W.resize(P.N, {});
         fitness = 0;
         
-        precomputeCheapestWarehouses();
         fillWarehousesCapacity();
-    }
-
-    void precomputeCheapestWarehouses() {
-        CHEAPEST_W_C.resize(P->M);
-        const int K = std::min(P->N, 20);
-
-        for (int i = 0; i < P->M; i++) {
-            CHEAPEST_W_C[i].resize(P->N);
-            std::iota(CHEAPEST_W_C[i].begin(), CHEAPEST_W_C[i].end(), 0);
-            
-            std::partial_sort(CHEAPEST_W_C[i].begin(), CHEAPEST_W_C[i].begin() + K, CHEAPEST_W_C[i].end(),
-                [this, i](int w1, int w2) {
-                    return P->T_CW[i][w1] + P->S_W[w1] < P->T_CW[i][w2] + P->S_W[w2];
-                });
-        }
     }
 
     void fillWarehousesCapacity() {
@@ -127,7 +124,7 @@ struct ProblemSolution {
 
     int findClosestAvailableWarehouse(int c, int exlude = -1) {
         int closestW = -1;
-        for (const int& w : CHEAPEST_W_C[c]) {
+        for (const int& w : P->CHEAPEST_W_C[c]) {
             if (w != exlude && WCanAccommodateC(c, w)) {
                 return w;
             }
@@ -177,6 +174,17 @@ struct ProblemSolution {
     }
 
     // Layout modification
+    void randomLayout() {
+        for (int c = 0; c != P->M; c++) {
+            int w = randomWarehouse();
+            if (w != -1) {
+                allocateWarehouse(c, w);
+            } else {
+                resolveHangingCustomer(c);
+            }
+        }
+    }
+
     void closestLayout() {
         for (int c = 0; c != P->M; c++) {
             int w = findClosestAvailableWarehouse(c);
@@ -201,6 +209,7 @@ struct ProblemSolution {
     void resolveHangingCustomer(int c, bool heuristic = false) {
         std::stack<int> hangingCustomers;
         hangingCustomers.push(c);
+        deallocateWarehouse(c);
         while (!hangingCustomers.empty()) {
             int hc = hangingCustomers.top(); 
             hangingCustomers.pop();
@@ -214,6 +223,7 @@ struct ProblemSolution {
                     allocateWarehouse(c_, w_);
                 } else {
                     hangingCustomers.push(c_);
+                    deallocateWarehouse(c_);
                 }
             }
 
@@ -304,6 +314,9 @@ struct ProblemStatistics {
         }
 
         Epoch* lastEpoch() {
+            if (epochs.empty())
+                return nullptr;
+
             return &(epochs.back());
         }
 

@@ -16,44 +16,54 @@ namespace ea {
 
     int populationSize;
     int tournamentSize;
-    int tournamentWinners;
 
     int epoch;
     double lastBestFitness;
 
     void solve(ProblemData& P, std::vector<ProblemSolution>& S, ProblemStatistics::Run& run) {
         initPopulation(S);
+        run.createRecord(epoch, S);
         while (!terminate(run)) {
-            run.createRecord(epoch, S);
+            std::cout << epoch << " " << lastBestFitness << std::endl;
             std::vector<ProblemSolution> O = generateOffspring(S);
-            generationalReplacement(S, O);
+            S = generationalReplacement(S, O);
+            run.createRecord(epoch, S);
         }
     }
 
-    void solver(ProblemData& P, std::vector<ProblemSolution>& S, ProblemStatistics& stats,
-        bool heuristic = false, int runs = 1, int epochs = 10000, int patience = 10) {
+    std::vector<ProblemSolution> solver(ProblemData& P, ProblemStatistics& stats,
+        bool heuristic = false, int runs = 1, int epochs = 10000, int patience = 10,
+        int populationSize = 100, int tournamentSize = 5) {
             ea::heuristic = heuristic;
             ea::epochMax = epochs;
-            ea::populationSize = S.size();
-            ea::tournamentSize = 5;
-            ea::tournamentWinners = 2;
+            ea::populationSize = populationSize;
+            ea::tournamentSize = tournamentSize;
             
+            std::vector<ProblemSolution> S;
+            S.reserve(populationSize);
             while (runs--) {    
                 ea::epoch = 0;
                 ea::lastBestFitness = std::numeric_limits<double>::max();
                 ea::patience = patience;
                 ea::patienceMax = patience;
+
+                S.clear();
+                for (int i = 0; i != ea::populationSize; i++) {
+                    S.emplace_back(ProblemSolution(P));
+                }
+
                 solve(P, S, stats.run);
                 stats.saveRun();
             }
+            return S;
     }
 
     bool terminate(ProblemStatistics::Run& run) {
         if (run.lastEpoch()->bestFitness < lastBestFitness) {
-            patience--;
-        } else {
             lastBestFitness = run.lastEpoch()->bestFitness;
             patience = patienceMax;
+        } else {
+            patience--;
         }
 
         if (epoch++ >= epochMax || patience == 0) {
@@ -64,7 +74,7 @@ namespace ea {
 
     void initPopulation(std::vector<ProblemSolution>& S) {
         for (ProblemSolution& s : S) {
-            s.closestLayout();
+            s.randomLayout();
         }
     }
 
@@ -134,6 +144,12 @@ namespace ea {
         for (int i = 0; i < populationSize; ++i) {
             std::vector<ProblemSolution*> parents = tournamentSelection(S, tournamentSize, 2);
             ProblemSolution O = onePointCrossover(parents[0], parents[1]);
+            if (!O.isValidSolution() || !O.checkAllocation()) {
+                std::runtime_error("Invalid offspring generated");
+            }
+            for (int i = 0; i != 10; i++) {
+                O.kickRandomCustomer();
+            }
             offspring.push_back(O);
         }
         return offspring;

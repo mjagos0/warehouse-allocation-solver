@@ -1,7 +1,7 @@
 #include <vector>
 
 namespace local_search {
-    bool terminate(ProblemSolution& S);
+    bool terminate(ProblemStatistics::Run& run);
     void LSFirstImproving(ProblemSolution& S);
     ProblemSolution generateNeighbor(ProblemSolution S);
 
@@ -10,36 +10,46 @@ namespace local_search {
     int patienceMax;
     int patience;
 
-    int epoch = 0;
+    int epoch;
+    double lastBestFitness;
 
-    void solve(ProblemData& P, ProblemSolution& S, ProblemStatistics::Run& stats) {
-        S.closestLayout();
-        while (!terminate(S)) {
-            stats.createRecord(epoch, S);
+    void solve(ProblemData& P, ProblemSolution& S, ProblemStatistics::Run& run) {
+        S.randomLayout();
+        run.createRecord(epoch, S);
+        while (!terminate(run)) {
+            std::cout << epoch << " " << lastBestFitness << std::endl;
             LSFirstImproving(S);
+            run.createRecord(epoch, S);
         }
     }
 
-    void solver(ProblemData& P, ProblemSolution& S, ProblemStatistics& stats,
+    std::vector<ProblemSolution> solver(ProblemData& P, ProblemStatistics& stats,
         bool heuristic = false, int runs = 1, int epochs = 10000, int patience = 10) {
             local_search::heuristic = heuristic;
             local_search::epochMax = epochs;
+
+            std::vector<ProblemSolution> S;
             while (runs--) {    
                 local_search::epoch = 0;
+                local_search::lastBestFitness = std::numeric_limits<double>::max();
                 local_search::patience = patience;
                 local_search::patienceMax = patience;
-                solve(P, S, stats.run);
+
+                S.clear();
+                S.emplace_back(ProblemSolution(P));
+
+                solve(P, S[0], stats.run);
                 stats.saveRun();
             }
+            return S;
     }
 
-    bool terminate(ProblemSolution& S) {
-        static double lastFitness;
-        if (lastFitness == S.fitness) {
-            patience--;
-        } else {
-            lastFitness = S.fitness;
+    bool terminate(ProblemStatistics::Run& run) {
+        if (run.lastEpoch()->bestFitness < lastBestFitness) {
+            lastBestFitness = run.lastEpoch()->bestFitness;
             patience = patienceMax;
+        } else {
+            patience--;
         }
 
         if (epoch++ >= epochMax || patience == 0) {

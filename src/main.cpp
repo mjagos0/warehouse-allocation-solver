@@ -12,35 +12,33 @@ enum Approach {
 };
 
 int main() {
+    Approach APPROACH = LOCAL_SEARCH;
     bool HEURISTIC = true;
     int RESTARTS = 1;
     int MAXEPOCH = 10000;
     int PATIENCE = 50;
 
-
-    // Local search:
-    // ProblemData P(std::cin);
-    // ProblemSolution S(P);
-    // ProblemStatistics stats;
-
-    // local_search::solver(P, S, stats, HEURISTIC, RESTARTS, MAXEPOCH, PATIENCE);
-    // ProblemStatistics::Run* bestRun = stats.getBestRun();
-    // processOutput(bestRun);
-
-    // EA:
-    int POPULATION = 100;
-
-
     ProblemData P(std::cin);
     ProblemStatistics stats;
     std::vector<ProblemSolution> S;
-    for (int i = 0; i != POPULATION; i++) {
-        std::cout << i << std::endl;
-        S.emplace_back(ProblemSolution(P));
+    switch (APPROACH) {
+        case LOCAL_SEARCH:
+            S = local_search::solver(P, stats, HEURISTIC, RESTARTS, MAXEPOCH, PATIENCE);
+            break;
+        case EVOLUTIONARY_ALGORITHM:
+            int POPULATION_SIZE = 100;
+            int TOURNAMENT_SIZE = 5;
+            S = ea::solver(P, stats, HEURISTIC, RESTARTS, MAXEPOCH, PATIENCE);
+            break;
+        case MEMETIC_ALGORITHM:
+            int POPULATION_SIZE = 100;
+            int TOURNAMENT_SIZE = 5;
+            S = ea::solver(P, stats, HEURISTIC, RESTARTS, MAXEPOCH, PATIENCE);
+            break;
     }
-
-    // ea::solver(P, S, stats, HEURISTIC, RESTARTS, MAXEPOCH, PATIENCE);
     
+    ProblemStatistics::Run* bestRun = stats.getBestRun();
+    processOutput(bestRun);
 
     return 0;
 }
