@@ -1,3 +1,6 @@
+#ifndef LOCAL_SEARCH_HPP
+#define LOCAL_SEARCH_HPP
+
 #include <vector>
 
 namespace local_search {
@@ -64,4 +67,9 @@ namespace local_search {
         if (SNeighbor.fitness < S.fitness)
             S = SNeighbor;
     }
+
+    void LSFirstImprovingModif(ProblemSolution& S) {
+        S.kickRandomCustomer();
+    }
 }
+#endif

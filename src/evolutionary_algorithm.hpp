@@ -1,3 +1,6 @@
+#ifndef EVOLUTIONARY_ALGORITHM_HPP
+#define EVOLUTIONARY_ALGORITHM_HPP
+
 #include <vector>
 
 namespace ea {
@@ -147,9 +150,7 @@ namespace ea {
             if (!O.isValidSolution() || !O.checkAllocation()) {
                 std::runtime_error("Invalid offspring generated");
             }
-            for (int i = 0; i != 10; i++) {
-                O.kickRandomCustomer();
-            }
+            O.kickRandomCustomer();
             offspring.push_back(O);
         }
         return offspring;
@@ -159,3 +160,4 @@ namespace ea {
         return O;
     }
 }
+#endif
