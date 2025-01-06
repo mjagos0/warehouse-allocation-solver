@@ -1,1 +1,0 @@
-/usr/bin/clang++-14 -g CMakeFiles/WhAllocSolver.dir/src/main.cpp.o -o WhAllocSolver 

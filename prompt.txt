@@ -1,1 +1,0 @@
-In a warehouse allocation problem with N warehouses, M customers, warehouse capacity C, warehouse setup cost S, and warehouse demand D,

@@ -150,7 +150,9 @@ namespace ea {
             if (!O.isValidSolution() || !O.checkAllocation()) {
                 std::runtime_error("Invalid offspring generated");
             }
-            O.kickRandomCustomer();
+            for (int i = 0; i != 5; i++) {
+                O.kickRandomCustomer();
+            }
             offspring.push_back(O);
         }
         return offspring;

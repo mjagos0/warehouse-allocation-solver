@@ -295,6 +295,7 @@ struct ProblemStatistics {
     struct Run {
         std::chrono::time_point<std::chrono::high_resolution_clock> start;
         std::vector<Epoch> epochs;
+        double bestFitness;
 
         Run() {
             start = std::chrono::high_resolution_clock::now();
@@ -313,6 +314,14 @@ struct ProblemStatistics {
             return epochs.size();
         }
 
+        void findBest() {
+            double lowest = std::numeric_limits<double>::max();
+            for (Epoch& e : epochs) {
+                lowest = std::min(lowest, e.bestFitness);
+            }
+            bestFitness = lowest;
+        }
+
         Epoch* lastEpoch() {
             if (epochs.empty())
                 return nullptr;
@@ -329,26 +338,22 @@ struct ProblemStatistics {
     std::vector<Run> runs;
 
     int saveRun() {
+        run.findBest();
         runs.push_back(run);
         run = Run();
         return runs.size();
     }
 
-    Run* getBestRun() {
-        if (runs.empty()) {
-            return nullptr;
-        }
-
-        Run* bestRun = &runs[0];
-        double bestRunLastFitnessAvg = bestRun->lastEpoch()->bestFitness;
-        for (Run& run : runs) {
-            double runLastFitnessAvg = run.lastEpoch()->bestFitness;
-            if (runLastFitnessAvg < bestRunLastFitnessAvg) {
-                bestRun = &run;
-                bestRunLastFitnessAvg = runLastFitnessAvg;
+    Run* findBestRun() {
+        Run* bestRun;
+        double lowest = std::numeric_limits<double>::max();
+        for (Run& r : runs) {
+            if (r.bestFitness < lowest) {
+                bestRun = &r;
+                lowest = r.bestFitness;
             }
         }
-        return bestRun;
+        return  bestRun;
     }
 };
 #endif
