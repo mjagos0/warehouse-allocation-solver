@@ -12,6 +12,8 @@ The Warehouse Allocation Problem involves assigning geographically distributed c
 ## Methodology
 [Read paper](documentation/warehouse-allocation.pdf)
 
+## Prerequisites
+
 ## Usage
 1. Clone the repository:
    ```bash
@@ -20,12 +22,12 @@ The Warehouse Allocation Problem involves assigning geographically distributed c
    ```
 2. Compile
     ```bash
-    g++ src/main -o main
+    g++ src/main.cpp -o main.o
     ```
 
 3. Run and feed input file
     ```bash
-    ./main < src/wl_2000_1.in
+    ./main.o < inputs/wl_2000_1.in
     ```
 
 ## Configuring parameters

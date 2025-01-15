@@ -38,6 +38,9 @@ int main() {
     ProblemStatistics stats;
     std::vector<ProblemSolution> S;
 
+    std::cout << "Running solver..." << std::endl;
+    std::cout << "EPOCH\tBEST FITNESS" << std::endl; 
+
     GlobalConfig gc;
     switch (APPROACH) {
         case LOCAL_SEARCH: {

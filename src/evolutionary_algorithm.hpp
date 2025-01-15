@@ -27,7 +27,7 @@ namespace ea {
         initPopulation(S);
         run.createRecord(epoch, S);
         while (!terminate(run)) {
-            std::cout << epoch << " " << lastBestFitness << std::endl;
+            std::cout << epoch << "\t" << lastBestFitness << std::endl;
             std::vector<ProblemSolution> O = generateOffspring(S);
             S = generationalReplacement(S, O);
             run.createRecord(epoch, S);

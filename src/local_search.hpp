@@ -20,7 +20,7 @@ namespace local_search {
         S.randomLayout();
         run.createRecord(epoch, S);
         while (!terminate(run)) {
-            std::cout << epoch << " " << lastBestFitness << std::endl;
+            std::cout << epoch << "\t" << lastBestFitness << std::endl;
             LSFirstImproving(S);
             run.createRecord(epoch, S);
         }

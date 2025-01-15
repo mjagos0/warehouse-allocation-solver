@@ -32,7 +32,7 @@ namespace memetic_algorithm {
         initPopulation(S);
         run.createRecord(epoch, S);
         while (!terminate(run)) {
-            std::cout << epoch << " " << lastBestFitness << std::endl;
+            std::cout << epoch << "\t" << lastBestFitness << std::endl;
             std::vector<ProblemSolution> O = generateOffspring(S);
             LocalImprovement(O);
             S = generationalReplacement(S, O);
