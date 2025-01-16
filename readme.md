@@ -13,6 +13,7 @@ The Warehouse Allocation Problem involves assigning geographically distributed c
 [Read paper](documentation/paper.pdf)
 
 ## Prerequisites
+C++ compiler, such as g++
 
 ## Usage
 1. Clone the repository:
