@@ -10,7 +10,7 @@ The Warehouse Allocation Problem involves assigning geographically distributed c
 - For each pair $<c,w>$ a cost $t_{cw}$ for delivering the goods from $w$ to $c$ is defined.
 
 ## Methodology
-[Read paper](documentation/warehouse-allocation.pdf)
+[Read paper](documentation/paper.pdf)
 
 ## Prerequisites
 
